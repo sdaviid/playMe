@@ -7,7 +7,11 @@ from handler.dirs import(
     listDir,
     listTemplate,
     play,
-    toggle_play
+    toggle_play,
+    get_audio,
+    get_subtitle,
+    set_audio,
+    set_subtitle
 )
 
 
@@ -25,6 +29,10 @@ def make_app():
         (r"/list-dir", listDir, dict(http_serving=http_serving)),
         (r"/play", play, dict(http_serving=http_serving, inst_player=player)),
         (r"/pause", toggle_play, dict(inst_player=player)),
+        (r"/audio", get_audio, dict(inst_player=player)),
+        (r"/subtitle", get_subtitle, dict(inst_player=player)),
+        (r"/set-audio", set_audio, dict(inst_player=player)),
+        (r"/set-subtitle", set_subtitle, dict(inst_player=player)),
     ], 
     settings = {
         "template_path": 'view/'

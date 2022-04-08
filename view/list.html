@@ -200,11 +200,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <button id="btn_play">Play/Pause</button>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <select class="form-select" id="sel_audio" aria-label="Default Audio">
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <select class="form-select" id="sel_sub" aria-label="Default Subtitle">
                             </select>
                         </div>
                     </div>
@@ -238,18 +242,53 @@
             })
         }
 
+        function get_audio(){
+            var url = `${window.location.origin}/audio`;
+            var resp = ajax_me(url);
+            for(var item_index=0;item_index<resp.responseJSON.data.length;item_index++){
+                var item = resp.responseJSON.data[item_index];
+                $('#sel_audio').append(`
+                    <option id=${item.id}>${item.descr}</option>`);
+            }
+        }
+
+        function get_sub(){
+            var url = `${window.location.origin}/subtitle`;
+            var resp = ajax_me(url);
+            for(var item_index=0;item_index<resp.responseJSON.data.length;item_index++){
+                var item = resp.responseJSON.data[item_index];
+                $('#sel_sub').append(`
+                    <option id=${item.id}>${item.descr}</option>`);
+            }
+        }
+
         $(document).on('click', '#item_video', function(e){
             e.preventDefault();
             $('#modal_controle').modal("show");
             console.log($(this).attr('href'));
             url = `${window.location.origin}${$(this).attr('href')}`;
             ajax_me(url);
+            get_audio();
+            get_sub();
         });
 
         $(document).on('click', '#btn_play', function(){
             url = `${window.location.origin}/pause`;
             ajax_me(url);
-        })
+        });
+
+        $(document).on('change', '#sel_audio', function(){
+            var optionSelected = $("option:selected", this);
+            console.log(optionSelected.attr('id'));
+            url = `${window.location.origin}/set-audio?id=${optionSelected.attr('id')}`;
+            ajax_me(url);
+        });
+
+        $(document).on('change', '#sel_sub', function(){
+            var optionSelected = $("option:selected", this);
+            url = `${window.location.origin}/set-subtitle?id=${optionSelected.attr('id')}`;
+            ajax_me(url);
+        });
 
         function parse_args(){
             var args = window.location.search.replace('?', '');
@@ -293,15 +332,17 @@
                 for(var item_dir_index=0;item_dir_index<data_list.responseJSON.data.length;item_dir_index++){
                     var item_dir = data_list.responseJSON.data[item_dir_index];
                     var arg = 'r';
+                    var type_item = '';
                     if(item_dir.type == 3){
                         arg = '/play?q';
+                        type_item = 'item_video';
                     }else{
                         arg = '?q';
                     }
                     console.log(arg);
                     console.log(item_dir_index);
                     $('#tb_produtos tbody').append(`<tr>
-                        <td><a id="item_video" href="${arg}=${q_s}${item_dir.title}">${item_dir.title}</a></td>
+                        <td><a id="${type_item}" href="${arg}=${q_s}${item_dir.title}">${item_dir.title}</a></td>
                         <td>${item_dir.type}</td>
                         <td>${item_dir.size}</td>
                     `);

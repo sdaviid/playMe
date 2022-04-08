@@ -44,3 +44,52 @@ class toggle_play(tornado.web.RequestHandler):
         self.inst_player = inst_player
     def get(self):
         self.inst_player.toggle_play()
+
+
+
+class get_audio(tornado.web.RequestHandler):
+    def initialize(self, inst_player):
+        self.inst_player = inst_player
+    def get(self):
+        self.set_header('Content-Type', 'application/json')
+        data_audio_info = self.inst_player.info.audio
+        data_audio = []
+        for audio_index in range(0, len(data_audio_info)):
+            audio = data_audio_info[audio_index]
+            data_audio_temp = {'id': (audio_index + 1), 'descr': audio.title}
+            data_audio.append(data_audio_temp)
+        data = {'status': True, 'data': data_audio}
+        self.write(data)
+
+
+
+class get_subtitle(tornado.web.RequestHandler):
+    def initialize(self, inst_player):
+        self.inst_player = inst_player
+    def get(self):
+        self.set_header('Content-Type', 'application/json')
+        data_sub_info = self.inst_player.info.subtitle
+        data_sub = []
+        for sub_index in range(0, len(data_sub_info)):
+            sub = data_sub_info[sub_index]
+            data_sub_temp = {'id': (sub_index + 1), 'descr': sub.title}
+            data_sub.append(data_sub_temp)
+        data = {'status': True, 'data': data_sub}
+        self.write(data)
+
+
+class set_audio(tornado.web.RequestHandler):
+    def initialize(self, inst_player):
+        self.inst_player = inst_player
+    def get(self):
+        id = self.get_argument('id', 0)
+        self.inst_player.set_audio(id)
+
+
+
+class set_subtitle(tornado.web.RequestHandler):
+    def initialize(self, inst_player):
+        self.inst_player = inst_player
+    def get(self):
+        id = self.get_argument('id', 0)
+        self.inst_player.set_subtitle(id)

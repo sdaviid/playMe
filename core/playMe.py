@@ -27,6 +27,20 @@ class playMe(object):
             self.player.pause = False
     def stop(self):
         self.player.stop()
+    def set_audio(self, id):
+        print('set audio ... {}'.format(id))
+        try:
+            id = int(id)
+            self.player.aid = id
+        except Exception as err:
+            print('exp set audio ... {}'.format(err))
+    def set_subtitle(self, id):
+        print('set set_subtitle ... {}'.format(id))
+        try:
+            id = int(id)
+            self.player.sid = id
+        except Exception as err:
+            print('exp set subtitle ... {}'.format(err))
 
 
 
@@ -34,7 +48,7 @@ class playMe(object):
 
 
 # path_video = r'/media/dd/1Tbb/Fleabag.S01.1080p.AMZN.WEB-DL.DDP5.1.H.264-SiGLA/Fleabag.S01E01.1080p.AMZN.WEB-DL.DDP5.1.H.264-SiGLA.mkv'
-# path_video = 'http://192.168.1.103/Fleabag.S01.1080p.AMZN.WEB-DL.DDP5.1.H.264-SiGLA/Fleabag.S01E01.1080p.AMZN.WEB-DL.DDP5.1.H.264-SiGLA.mkv'
+# path_video = 'http://192.168.1.103/Fleabag.S01.1080p.AMZN.WEB-DL.DDP5.1.H.264-SiGLA/caralho/Fleabag.S01E01.1080p.AMZN.WEB-DL.DDP5.1.H.264-SiGLA.mkv'
 
 
 # p = playMe()
