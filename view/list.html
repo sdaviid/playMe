@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>PlayMe</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <!-- Customd styles for this template -->
+        <link href="https://getbootstrap.com/docs/3.3/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <style>
+        	/*
+        	 * Base structure
+        	 */
+
+        	/* Move down content because we have a fixed navbar that is 50px tall */
+        	body {
+        	  padding-top: 50px;
+        	}
+
+
+        	/*
+        	 * Global add-ons
+        	 */
+
+        	.sub-header {
+        	  padding-bottom: 10px;
+        	  border-bottom: 1px solid #eee;
+        	}
+
+        	/*
+        	 * Top navigation
+        	 * Hide default border to remove 1px line.
+        	 */
+        	.navbar-fixed-top {
+        	  border: 0;
+        	}
+
+        	/*
+        	 * Sidebar
+        	 */
+
+        	/* Hide for mobile, show later */
+        	.sidebar {
+        	  display: none;
+        	}
+        	@media (min-width: 768px) {
+        	  .sidebar {
+        	    position: fixed;
+        	    top: 51px;
+        	    bottom: 0;
+        	    left: 0;
+        	    z-index: 1000;
+        	    display: block;
+        	    padding: 20px;
+        	    overflow-x: hidden;
+        	    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        	    background-color: #f5f5f5;
+        	    border-right: 1px solid #eee;
+        	  }
+        	}
+
+        	/* Sidebar navigation */
+        	.nav-sidebar {
+        	  margin-right: -21px; /* 20px padding + 1px border */
+        	  margin-bottom: 20px;
+        	  margin-left: -20px;
+        	}
+        	.nav-sidebar > li > a {
+        	  padding-right: 20px;
+        	  padding-left: 20px;
+        	}
+        	.nav-sidebar > .active > a,
+        	.nav-sidebar > .active > a:hover,
+        	.nav-sidebar > .active > a:focus {
+        	  color: #fff;
+        	  background-color: #428bca;
+        	}
+
+
+        	/*
+        	 * Main content
+        	 */
+
+        	.main {
+        	  padding: 20px;
+        	}
+        	@media (min-width: 768px) {
+        	  .main {
+        	    padding-right: 40px;
+        	    padding-left: 40px;
+        	  }
+        	}
+        	.main .page-header {
+        	  margin-top: 0;
+        	}
+
+
+        	/*
+        	 * Placeholder dashboard ideas
+        	 */
+
+        	.placeholders {
+        	  margin-bottom: 30px;
+        	  text-align: center;
+        	}
+        	.placeholders h4 {
+        	  margin-bottom: 0;
+        	}
+        	.placeholder {
+        	  margin-bottom: 20px;
+        	}
+        	.placeholder img {
+        	  display: inline-block;
+        	  border-radius: 50%;
+        	}
+
+        	.padding-left-10 {
+        		padding-left: 10px;
+        	}
+
+        	.padding-right-10{
+        		padding-right: 10px
+        	}
+
+
+        	tr.strikeout td:before {
+        	    content: " ";
+        	    position: absolute;
+        	    top: 50%;
+        	    left: 0;
+        	    border-bottom: 1px solid #111;
+        	    width: 100%;
+        	}
+        </style>
+    </head>
+
+  <body>
+  	
+
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+     	<div class="container-fluid">
+	        <div class="navbar-header">
+	         	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+		            <span class="sr-only">Toggle navigation</span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+	          	</button>
+	          	<a class="navbar-brand" href="#">PlayMe</a>
+	        </div>
+      	</div>
+    </nav>
+
+    <div class="container-fluid">
+     	<div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+            	<ul class="nav nav-sidebar">
+    	            <li class="active"><a href="#">Selecionar Arquivo <span class="sr-only">(current)</span></a></li>
+    	            <li><a href="#">Todas as Listas</a></li>
+              	</ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+              	<h1 class="page-header">Lista de Arquivos</h1>
+                <div class="table-responsive">
+            		<table class="table table-striped" id="tb_produtos">
+              			<thead>
+    		                <tr>
+                                <th>Titulo</th>
+                                <th>Tipo</th>
+                                <th>Tamanho</th>
+    		                </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- MODALS -->
+
+    <!-- ADICIONAR PRODUTO -->
+
+    <div id="modal_controle" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Controle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button id="btn_play">Play/Pause</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="form-select" id="sel_audio" aria-label="Default Audio">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span style="color: red;" id="message_modal_add_error"></span>
+                    <button type="button" class="btn btn-primary" id="btn_add_unit">XXX</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIM MODAL ADICIONAR PRODUTO -->
+
+
+</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+        function ajax_me(url, method='GET'){
+            return $.ajax({
+                url: url,
+                type: method,
+                async: false,
+                cache: false,
+                timeout: 10000,
+                done: function(data){
+                    return data;
+                }
+            })
+        }
+
+        $(document).on('click', '#item_video', function(e){
+            e.preventDefault();
+            $('#modal_controle').modal("show");
+            console.log($(this).attr('href'));
+            url = `${window.location.origin}${$(this).attr('href')}`;
+            ajax_me(url);
+        });
+
+        $(document).on('click', '#btn_play', function(){
+            url = `${window.location.origin}/pause`;
+            ajax_me(url);
+        })
+
+        function parse_args(){
+            var args = window.location.search.replace('?', '');
+            var args_s = args.split('&');
+            var args_temp = {}
+            for(var arg_index=0;arg_index<args_s.length;arg_index++){
+                var arg_item = args_s[arg_index];
+                var arg_item_s = arg_item.split('=');
+                args_temp[arg_item_s[0]] = arg_item_s[1];
+            }
+            return args_temp;
+        }
+
+        function location_back(){
+            var args = parse_args()
+            if(!args.hasOwnProperty('q'))
+                return false;
+            var location_s = args.q.slice(0, -1).split('/');
+            var location = '';
+            for(var location_index=0;location_index<(location_s.length-1);location_index++){
+                var location_item = location_s[location_index];
+                location += `${location_item}/`
+            }
+            return location;
+        }
+        var args_parsed = parse_args();
+        var q_s = args_parsed.hasOwnProperty('q') == true ? args_parsed.q : '';
+        var go_back_s = location_back();
+        $(document).ready(function(){
+            var data_list = ajax_me(`/list-dir${window.location.search}`);
+            if(data_list.responseJSON.status === true){
+                console.log('truye');
+                if(go_back_s !== false){
+                    $('#tb_produtos tbody').append(`<tr>
+                        <td><a href="?q=${go_back_s}">..</a></td>
+                        <td>0</td>
+                        <td></td>
+                    `);
+                }
+
+                for(var item_dir_index=0;item_dir_index<data_list.responseJSON.data.length;item_dir_index++){
+                    var item_dir = data_list.responseJSON.data[item_dir_index];
+                    var arg = 'r';
+                    if(item_dir.type == 3){
+                        arg = '/play?q';
+                    }else{
+                        arg = '?q';
+                    }
+                    console.log(arg);
+                    console.log(item_dir_index);
+                    $('#tb_produtos tbody').append(`<tr>
+                        <td><a id="item_video" href="${arg}=${q_s}${item_dir.title}">${item_dir.title}</a></td>
+                        <td>${item_dir.type}</td>
+                        <td>${item_dir.size}</td>
+                    `);
+                }
+            }
+        });
+  </script>
+</html>
